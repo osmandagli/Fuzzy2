@@ -125,3 +125,5 @@ defuzz = fuzz.defuzz(x_co2, out_co2, 'centroid')
 membership_res = fuzz.interp_membership(x_co2, out_co2, defuzz)
 
 print(membership_res, defuzz)
+
+print()
