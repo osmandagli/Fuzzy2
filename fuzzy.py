@@ -49,7 +49,7 @@ ca_low = fuzz.membership.trimf(x_credit_amount, [0, 125, 250])
 ca_medium = fuzz.membership.trimf(x_credit_amount, [125, 250, 375])
 ca_high = fuzz.membership.trimf(x_credit_amount, [250, 375, 500])
 ca_vh = fuzz.membership.trimf(x_credit_amount, [375, 500, 500])
-
+'''
 fig,  (ax0,ax1,ax2,ax3) = plt.subplots(nrows = 4, figsize = (20, 20))
 
 ax0.plot(x_market_value_house, mvh_low)
@@ -111,9 +111,50 @@ ax7.set_title('Credit Amount')
 ax7.legend()
 
 plt.show()
+'''
+
+input_mvh = 60
+input_loc = 3
+
+#.append(fuzz.interp_membership(x_, , ))
+
+market_values = [mvh_low,mvh_medium,mvh_high, mvh_vh]
+market_fit = []
+for value in market_values:
+    market_fit.append(fuzz.interp_membership(x_market_value_house, value, input_mvh))
+
+d = ['low', 'medium', 'high', 'vh']
+mvh_dict = dict(zip(d, market_fit))
+#print(temp_dict)
 
 
+location_values = [lh_bad, lh_fair, lh_exc]
+loc_fit = []
+for loc in location_values:
+    loc_fit.append(fuzz.interp_membership(x_location_house, loc, input_loc))
+d = ['bad', 'fair', 'exc']
 
+loc_dict = dict(zip(d, loc_fit))
+#print(loc_dict)
+
+'''
+    House eval rules
+'''
+AND = np.min
+OR = np.max
+
+rule_n1 = mvh_dict['low'] * house_low
+rule_n2 = loc_dict['bad'] * house_low
+
+r1 = [max(a,b) for a,b in zip(rule_n1,rule_n2)] 
+
+#r2 = OR(mvh_dict['low'], loc_dict['bad']) * house_low
+
+plt.plot(x_house, house_low)
+plt.plot(x_house, r1)
+#plt.plot(x_house, r2)
+
+plt.show()
 
 
 
