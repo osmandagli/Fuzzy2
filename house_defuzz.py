@@ -1,5 +1,6 @@
 import skfuzzy as fuzz
 import numpy as np 
+import matplotlib.pyplot as plt
 
 def house_defuzz(market_values, x_market_value_house, location_values, x_location_house, input_mvh, input_loc):
     

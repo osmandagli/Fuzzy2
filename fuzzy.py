@@ -2,6 +2,7 @@ import skfuzzy as fuzz
 import numpy as np 
 import matplotlib.pyplot as plt
 from house_defuzz import house_defuzz
+from applicant_defuzz import applicant_defuzz
 
 x_market_value_house = np.arange(0, 1050, 50)
 x_location_house = np.arange(0, 10.5, 0.5)
@@ -53,15 +54,8 @@ ca_vh = fuzz.membership.trimf(x_credit_amount, [375, 500, 500])
 
 input_mvh = 500
 input_loc = 5
-#input_aa = 5
-
-
-'''
-asset_applicants = [aa_low, aa_medium, aa_high]
-asset_fit = []
-for applicant in asset_applicants:
-    asset_fit.append(fuzz.interp_membership(x_asset_application, applicant, input_aa))
-'''
+input_aa = 100
+input_inc = 35
 
 
 '''
@@ -69,14 +63,19 @@ for applicant in asset_applicants:
 '''
 market_values = [mvh_low,mvh_medium,mvh_high, mvh_vh]
 location_values = [lh_bad, lh_fair, lh_exc]
-defuzz_mom = house_defuzz(market_values, x_market_value_house, location_values, x_location_house, input_mvh, input_loc)
+defuzz_house = house_defuzz(market_values, x_market_value_house, location_values, x_location_house, input_mvh, input_loc)
+#membership_res = fuzz.interp_membership(x_house, house_out, defuzz_house) içinde bulunma oranı
+print(defuzz_house)
+
 
 '''
     Applicant eval rules
 '''
 
-#membership_res = fuzz.interp_membership(x_house, house_out, defuzz_mom) içinde bulunma oranı
-print(defuzz_mom)
+asset_values = [aa_low, aa_medium, aa_high]
+income_values = [i_low,i_medium,i_high,i_vh]
+defuzz_applicant = applicant_defuzz(asset_values, x_asset_application, income_values, x_income, input_aa, input_inc)
+print(defuzz_applicant)
 
 
 
