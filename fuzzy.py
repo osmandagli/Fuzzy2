@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from house_defuzz import house_defuzz
 from applicant_defuzz import applicant_defuzz
+from credit_defuzz import credit_defuzz
 
 x_market_value_house = np.arange(0, 1050, 50)
 x_location_house = np.arange(0, 10.5, 0.5)
@@ -27,10 +28,10 @@ aa_low = fuzz.membership.trimf(x_asset_application, [0,0,150])
 aa_medium = fuzz.membership.trapmf(x_asset_application, [50,250,450,650])
 aa_high = fuzz.membership.trapmf(x_asset_application, [500,700,1000,1000])
 
-i_low = fuzz.membership.trapmf(x_income, [0, 0, 10, 25])
-i_medium = fuzz.membership.trimf(x_income, [15, 35, 55])
-i_high = fuzz.membership.trimf(x_income, [40, 60, 80])
-i_vh = fuzz.membership.trapmf(x_income, [60, 80, 100, 100])
+inc_low = fuzz.membership.trapmf(x_income, [0, 0, 10, 25])
+inc_medium = fuzz.membership.trimf(x_income, [15, 35, 55])
+inc_high = fuzz.membership.trimf(x_income, [40, 60, 80])
+inc_vh = fuzz.membership.trapmf(x_income, [60, 80, 100, 100])
 
 int_low = fuzz.membership.trapmf(x_interest_rate, [0,0,2,5])
 int_medium = fuzz.membership.trapmf(x_interest_rate, [2,4,6,8])
@@ -52,10 +53,11 @@ ca_medium = fuzz.membership.trimf(x_credit_amount, [125, 250, 375])
 ca_high = fuzz.membership.trimf(x_credit_amount, [250, 375, 500])
 ca_vh = fuzz.membership.trimf(x_credit_amount, [375, 500, 500])
 
-input_mvh = 500
-input_loc = 5
-input_aa = 100
-input_inc = 35
+input_mvh = 1000
+input_loc = 9
+input_aa = 900
+input_inc = 90
+input_int = 5
 
 
 '''
@@ -73,9 +75,30 @@ print(defuzz_house)
 '''
 
 asset_values = [aa_low, aa_medium, aa_high]
-income_values = [i_low,i_medium,i_high,i_vh]
+income_values = [inc_low,inc_medium,inc_high,inc_vh]
 defuzz_applicant = applicant_defuzz(asset_values, x_asset_application, income_values, x_income, input_aa, input_inc)
 print(defuzz_applicant)
+
+''''
+    Credit eval rules
+'''
+
+derived_input_house = defuzz_house
+derived_input_applicant = defuzz_applicant
+
+inc_values = [inc_low, inc_medium, inc_high, inc_vh]
+int_values = [int_low, int_medium, int_high]
+house_values = [house_vl, house_low, house_medium, house_high, house_vh]
+app_values = [app_low, app_medium, app_high]
+
+int_tuple = [x_interest_rate, int_values, input_int]
+inc_tuple = [x_income, income_values, input_inc]
+house_tuple = [x_house, house_values, derived_input_house]
+app_tuple = [x_applicant, app_values, derived_input_applicant]
+
+defuzz_credit = credit_defuzz(int_tuple, inc_tuple, house_tuple, app_tuple)
+
+
 
 
 
