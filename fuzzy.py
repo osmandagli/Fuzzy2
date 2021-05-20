@@ -59,7 +59,6 @@ input_aa = 900
 input_inc = 90
 input_int = 5
 
-
 '''
     House eval rules
 '''
@@ -98,6 +97,7 @@ app_tuple = [x_applicant, app_values, derived_input_applicant]
 
 defuzz_credit = credit_defuzz(int_tuple, inc_tuple, house_tuple, app_tuple)
 
+#end
 
 
 
