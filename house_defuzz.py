@@ -57,10 +57,10 @@ def house_defuzz(market_values, x_market_value_house, location_values, x_locatio
     
     house_out = np.array([max(a,b,c,d,e) for a,b,c,d,e in zip(out_house_vl, out_house_low, out_house_medium, out_house_high, out_house_vh)])
     
-    defuzz_mom = fuzz.defuzz(x_house, house_out, 'mom')
+    defuzz_lom = fuzz.defuzz(x_house, house_out, 'lom')
     
     #plt.plot(x_house, house_out)
     #plt.plot(x_house, out_house_high)
     
-    return defuzz_mom
+    return defuzz_lom
     

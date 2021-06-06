@@ -15,7 +15,8 @@ def applicant_defuzz(asset_values, x_asset_application, income_values, x_income,
 
     d = ['low', 'medium', 'high']
     asset_dict = dict(zip(d, asset_fit))
-
+    
+    
     inc_fit = []
     for applicant in income_values:
         inc_fit.append(fuzz.interp_membership(x_income, applicant, input_inc))
@@ -48,12 +49,12 @@ def applicant_defuzz(asset_values, x_asset_application, income_values, x_income,
 
     defuzz_mom = fuzz.defuzz(x_applicant, applicant_out, 'mom')
     
-    '''
+    
     plt.plot(x_applicant, out_app_l, color = 'k')
     plt.plot(x_applicant, out_app_m, linestyle = '--',alpha = 0.35, color = 'r')
     plt.plot(x_applicant, out_app_high, linestyle = '--',alpha = 0.35, color = 'g')
     plt.plot(x_applicant, applicant_out, linestyle = '--',alpha = 0.35, color = 'b')
     plt.show()
-    '''
+    
     return defuzz_mom
     

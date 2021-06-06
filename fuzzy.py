@@ -53,11 +53,11 @@ ca_medium = fuzz.membership.trimf(x_credit_amount, [125, 250, 375])
 ca_high = fuzz.membership.trimf(x_credit_amount, [250, 375, 500])
 ca_vh = fuzz.membership.trimf(x_credit_amount, [375, 500, 500])
 
-input_mvh = 1000
+input_mvh = 900
 input_loc = 9
-input_aa = 900
+input_aa = 800
 input_inc = 90
-input_int = 5
+input_int = 9
 
 '''
     House eval rules
@@ -97,7 +97,6 @@ app_tuple = [x_applicant, app_values, derived_input_applicant]
 
 defuzz_credit = credit_defuzz(int_tuple, inc_tuple, house_tuple, app_tuple)
 
-#end
 
 
 

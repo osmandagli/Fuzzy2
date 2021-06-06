@@ -71,11 +71,11 @@ def credit_defuzz(int_tuple, inc_tuple, house_tuple, app_tuple):
     
     credit_out = np.array([max(a,b,c,d,e) for a,b,c,d,e in zip(out_credit_vl,out_credit_low,out_credit_medium,out_credit_high,out_credit_vh)])
     
-    defuzz_cen = fuzz.defuzz(x_credit_amount, credit_out, 'centroid')
+    defuzz_som = fuzz.defuzz(x_credit_amount, credit_out, 'centroid')
     
-    print(defuzz_cen)
+    print(defuzz_som)
     
-    return defuzz_cen
+    return defuzz_som
     
     
     
